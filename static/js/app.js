@@ -1,0 +1,1 @@
+console.log("RAGBot frontend loaded.");

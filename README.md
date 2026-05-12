@@ -120,16 +120,10 @@ To Execute:
 
 cd SOLUTION
 cd ai-engineer-coding-task-uk
-
 python -m venv venv
-
 source venv/bin/activate
-
 pip install -r requirements.txt
-
 cp env_example.txt .env
-
 python main.py
-
 --------------------------------------------------------
 
