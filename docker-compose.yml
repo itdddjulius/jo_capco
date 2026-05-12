@@ -1,0 +1,21 @@
+services:
+  ragbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: ragbot-python311
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/app
+
+    env_file:
+      - .env
+
+    environment:
+      TOKENIZERS_PARALLELISM: "false"
+
+    command: uvicorn app:app --host 0.0.0.0 --port 8000
