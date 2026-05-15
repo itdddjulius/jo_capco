@@ -1,22 +1,535 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>RAGBot</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>
+        RAGBot - Capco – AI Engineer Coding Task
+    </title>
+
+    <!-- ==================== BOOTSTRAP ==================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- ==================== CUSTOM CSS ==================== -->
+
+    <style>
+
+        /* ==================== GLOBAL ==================== */
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        html,
+        body{
+            width:100%;
+            height:100%;
+            overflow:hidden;
+            background:#000;
+            color:#fff;
+        }
+
+        body{
+            display:flex;
+            flex-direction:column;
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+        /* ==================== MAIN LAYOUT ==================== */
+
+        .main-wrapper{
+            flex:1;
+            width:100%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:12px;
+            overflow:hidden;
+        }
+
+        .content-box{
+
+            width:100%;
+            max-width:1100px;
+
+            height:calc(100vh - 120px);
+
+            background:#0d0d0d;
+
+            border:1px solid #222;
+
+            border-radius:14px;
+
+            padding:20px;
+
+            display:flex;
+            flex-direction:column;
+
+            overflow:hidden;
+
+            box-shadow:
+                0 0 20px rgba(0,255,136,0.10);
+
+        }
+
+        /* ==================== HEADER ==================== */
+
+        .header-title{
+            text-align:center;
+            color:#00ff88;
+            font-size:30px;
+            margin-bottom:18px;
+            flex-shrink:0;
+        }
+
+        /* ==================== FORM ==================== */
+
+        .question-form{
+            flex-shrink:0;
+        }
+
+        textarea{
+
+            width:100%;
+
+            min-height:58px;
+
+            max-height:90px;
+
+            resize:none;
+
+            background:#000;
+
+            color:#fff;
+
+            border:1px solid #333;
+
+            border-radius:10px;
+
+            padding:14px;
+
+            font-size:15px;
+
+            outline:none;
+
+        }
+
+        textarea::placeholder{
+            color:#888;
+        }
+
+        textarea:focus{
+            border-color:#00ff88;
+            box-shadow:
+                0 0 10px rgba(0,255,136,0.20);
+        }
+
+        /* ==================== BUTTON ==================== */
+
+        .btn-ask{
+
+            margin-top:12px;
+
+            background:#00ff88;
+
+            color:#000;
+
+            border:none;
+
+            border-radius:8px;
+
+            padding:12px 28px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+            transition:0.3s;
+
+        }
+
+        .btn-ask:hover{
+            background:#00cc6f;
+            transform:scale(1.02);
+        }
+
+        /* ==================== ANSWER BOX ==================== */
+
+        .answer-box{
+
+            flex:1;
+
+            margin-top:16px;
+
+            background:#000;
+
+            border:1px solid #333;
+
+            border-radius:10px;
+
+            padding:14px;
+
+            display:flex;
+
+            flex-direction:column;
+
+            overflow:hidden;
+
+        }
+
+        .answer-title{
+
+            color:#00ff88;
+
+            margin-bottom:10px;
+
+            font-size:18px;
+
+            flex-shrink:0;
+
+        }
+
+        #answer-content{
+
+            flex:1;
+
+            overflow:hidden;
+
+            display:flex;
+
+            flex-direction:column;
+
+            color:#fff;
+
+        }
+
+        #answer-iframe{
+
+            flex:1;
+
+            width:100%;
+
+            border:none;
+
+            background:#000;
+
+            color:#fff;
+
+            border-radius:8px;
+
+            overflow:hidden;
+
+        }
+
+        /* ==================== FOOTER ==================== */
+
+        footer{
+
+            width:100%;
+
+            background:#050505;
+
+            border-top:1px solid #00aa55;
+
+            padding:10px;
+
+            text-align:center;
+
+            flex-shrink:0;
+
+        }
+
+        .footer-menu{
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            gap:12px;
+
+            margin-bottom:6px;
+
+            flex-wrap:wrap;
+
+        }
+
+        .footer-menu button{
+
+            background:#00ff88;
+
+            color:#000;
+
+            border:none;
+
+            padding:8px 16px;
+
+            border-radius:6px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+            transition:0.3s;
+
+        }
+
+        .footer-menu button:hover{
+            background:#00cc6f;
+        }
+
+        footer p{
+
+            color:#888;
+
+            font-size:13px;
+
+            margin:0;
+
+        }
+
+        footer p a{
+
+            color:#00ff88;
+
+        }
+
+        footer p a:hover{
+
+            text-decoration:underline;
+
+        }
+
+        /* ==================== CONTACT MODAL ==================== */
+
+        .modal-content{
+
+            background:#0d0d0d;
+
+            color:#fff;
+
+            border:1px solid #00aa55;
+
+        }
+
+        .modal-header{
+
+            border-bottom:1px solid #222;
+
+        }
+
+        .modal-body{
+
+            overflow:hidden;
+
+        }
+
+        .contact-iframe{
+
+            width:100%;
+
+            height:70vh;
+
+            border:none;
+
+            border-radius:8px;
+
+            background:#fff;
+
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+
+        @media(max-width:768px){
+
+            .header-title{
+                font-size:22px;
+            }
+
+            .content-box{
+
+                height:calc(100vh - 140px);
+
+                padding:14px;
+
+            }
+
+            textarea{
+
+                min-height:54px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 <body>
-    <div class="container">
-        <h1>RAGBot</h1>
 
-        <form action="/ask" method="post">
-            <textarea name="question" placeholder="Ask a question..." required></textarea>
+    <!-- ==================== MAIN WRAPPER ==================== -->
 
-            <button type="submit">
-                Ask Question
-            </button>
-        </form>
+    <div class="main-wrapper">
+
+        <div class="content-box">
+
+            <!-- ==================== TITLE ==================== -->
+
+            <h1 class="header-title">
+                RAGBot - Capco – AI Engineer Coding Task
+            </h1>
+
+            <!-- ==================== QUESTION FORM ==================== -->
+
+            <form
+                action="/ask"
+                method="post"
+                class="question-form"
+            >
+
+                <textarea
+                    name="question"
+                    rows="2"
+                    placeholder="Ask a question..."
+                    required
+                ></textarea>
+
+                <center>
+
+                    <button
+                        type="submit"
+                        class="btn-ask"
+                    >
+                        Ask Question
+                    </button>
+
+                </center>
+
+            </form>
+
+            <!-- ==================== ANSWER SECTION ==================== -->
+
+            <div class="answer-box">
+
+                <div class="answer-title">
+                    ANSWER
+                </div>
+
+                <div id="answer-content">
+
+                    <iframe
+                        id="answer-iframe"
+                        src="/answer"
+                    ></iframe>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
+    <!-- ==================== FOOTER ==================== -->
+
+    <footer>
+
+        <div class="footer-menu">
+
+            <button
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#contactModal"
+            >
+                CONTACT
+            </button>
+
+        </div>
+
+        <p>
+
+            Another Website by
+
+            <a
+                href="https://raiiarcomio.com"
+                target="_blank"
+            >
+                Julius Olatokunbo
+            </a>
+
+        </p>
+
+    </footer>
+
+    <!-- ==================== CONTACT MODAL ==================== -->
+
+    <div
+        class="modal fade"
+        id="contactModal"
+        tabindex="-1"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+        >
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        CONTACT
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                    ></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <iframe
+                        class="contact-iframe"
+                        src="https://raiiarcomio.com/contact2"
+                    ></iframe>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+
     <script src="/static/js/app.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
