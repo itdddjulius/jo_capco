@@ -14,7 +14,7 @@ load_dotenv()
 class RAGBot:
     def __init__(self):
         """
-        Instantiates Azure OpenAI client and local SentenceTransformer model.
+        JO - Instantiates Azure OpenAI client and local SentenceTransformer model.
         """
         self.openai_client = AzureOpenAI(
             api_key=os.environ.get("AZURE_OPENAI_API_KEY"),
@@ -31,8 +31,8 @@ class RAGBot:
 
     def _chunk_text(self, text: str, chunk_size: int = 700, overlap: int = 120) -> List[str]:
         """
-        Simple overlapping character chunking.
-        This is pragmatic for a small 45-minute RAG prototype.
+        JO - Simple overlapping character chunking.
+        JO - This is pragmatic for a small 45-minute RAG prototype.
         """
         cleaned_text = " ".join(text.split())
 
@@ -56,9 +56,9 @@ class RAGBot:
 
     def read_and_embed_data(self, folder_path):
         """
-        Loads all .txt files from the given folder path,
-        chunks the documents, generates embeddings,
-        and stores them in memory for retrieval.
+        JO - Loads all .txt files from the given folder path,
+        JO - chunks the documents, generates embeddings,
+        JO - and stores them in memory for retrieval.
         """
         folder = Path(folder_path)
 
@@ -97,8 +97,8 @@ class RAGBot:
 
     def _retrieve(self, question: str, k: int = 3) -> List[Dict[str, Any]]:
         """
-        Embeds the user question and returns the top-k most relevant chunks.
-        Because embeddings are normalized, dot product equals cosine similarity.
+        JO - Embeds the user question and returns the top-k most relevant chunks.
+        JO - Because embeddings are normalized, dot product equals cosine similarity.
         """
         if self.embeddings is None or not self.chunks:
             raise RuntimeError("No embeddings found. Call read_and_embed_data() first.")
@@ -122,9 +122,9 @@ class RAGBot:
 
     def ask(self, question, k=3):
         """
-        Accepts a user query, retrieves the top-k most relevant
-        document chunks based on similarity, and returns a context-aware
-        answer from Azure OpenAI.
+        JO - Accepts a user query, retrieves the top-k most relevant
+        JO - document chunks based on similarity, and returns a context-aware
+        JO - answer from Azure OpenAI.
         """
         relevant_chunks = self._retrieve(question=question, k=k)
 
