@@ -196,7 +196,7 @@ RAGBot is a complete RAG (Retrieval-Augmented Generation) implementation that:
 ├─────────────────────────┬───────────────────────────────────┤
 │      CLI Interface      │         Web Interface             │
 │      (main.py)          │         (app.py)                  │
-│   python main.py        │   uvicorn app:app --reload       │
+│   python main.py        │   uvicorn app:app --reload        │
 └────────────┬────────────┴──────────────┬────────────────────┘
              │                            │
              │                            │
@@ -205,11 +205,11 @@ RAGBot is a complete RAG (Retrieval-Augmented Generation) implementation that:
     │                    RAGBot CLASS                        │
     │                      (rag.py)                          │
     ├────────────────────────────────────────────────────────┤
-    │  • __init__()          - Initialize clients           │
-    │  • _chunk_text()       - Document chunking            │
-    │  • read_and_embed_data() - Load & embed documents     │
-    │  • _retrieve()         - Similarity search            │
-    │  • ask()               - Generate answer              │
+    │  • __init__()          - Initialize clients            │
+    │  • _chunk_text()       - Document chunking             │
+    │  • read_and_embed_data() - Load & embed documents      │
+    │  • _retrieve()         - Similarity search             │
+    │  • ask()               - Generate answer               │
     └────────────┬───────────────────────────────────────────┘
                  │
                  ▼
@@ -217,7 +217,7 @@ RAGBot is a complete RAG (Retrieval-Augmented Generation) implementation that:
     │              EXTERNAL DEPENDENCIES                     │
     ├──────────────┬──────────────────┬──────────────────────┤
     │ Local Models │  Azure OpenAI    │   File System        │
-    │ Sentence     │  GPT-4o API      │   data/*.txt        │
+    │ Sentence     │  GPT-4o API      │   data/*.txt         │
     │ Transformer  │                  │                      │
     └──────────────┴──────────────────┴──────────────────────┘
 ```
